@@ -22,7 +22,14 @@ class TarefaTile extends StatelessWidget {
             Provider.of<TarefasProvider>(context, listen: false).update(tarefa);
           },
         ),
-        title: Text(tarefa.title),
+        title: Text(
+          tarefa.title,
+          style: TextStyle(
+            decoration: tarefa.completed
+                ? TextDecoration.lineThrough
+                : TextDecoration.none,
+          ),
+        ),
         trailing: IconButton(
           icon: const Icon(Icons.delete),
           color: Colors.red,

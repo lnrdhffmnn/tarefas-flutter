@@ -19,6 +19,16 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _titleController = TextEditingController();
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  void addTarefa() {
+    String title = _titleController.text;
+    if (title.isEmpty) return;
+    Provider.of<TarefasProvider>(context, listen: false)
+        .add(Tarefa(title: title));
+    _titleController.text = "";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,33 +55,31 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 15),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _titleController,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        label: Text("Digite algo..."),
-                        contentPadding: EdgeInsets.all(10),
+              child: Form(
+                key: _formKey,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: _titleController,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          label: Text("Digite algo..."),
+                          contentPadding: EdgeInsets.all(10),
+                        ),
+                        onFieldSubmitted: (value) => addTarefa(),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  IconButton.filled(
-                    padding: const EdgeInsets.all(10),
-                    icon: const Icon(Icons.add),
-                    onPressed: () {
-                      String title = _titleController.text;
-                      if (title.isEmpty) return;
-                      Provider.of<TarefasProvider>(context, listen: false)
-                          .add(Tarefa(title: title));
-                      _titleController.text = "";
-                    },
-                  )
-                ],
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    IconButton.filled(
+                      padding: const EdgeInsets.all(10),
+                      icon: const Icon(Icons.add),
+                      onPressed: addTarefa,
+                    )
+                  ],
+                ),
               ),
             ),
           ],
