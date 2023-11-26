@@ -9,19 +9,19 @@ void main() {
     tarefasProvider = TarefasProvider();
   });
 
-  test("Lista de tarefas deve iniciar vazia", () {
+  test('Lista de tarefas deve iniciar vazia', () {
     expect(tarefasProvider.tarefas, List<Tarefa>.empty());
   });
 
-  test("Deve incluir uma nova tarefa", () {
-    String title = "Olá";
+  test('Deve incluir uma nova tarefa', () {
+    String title = 'Olá';
     tarefasProvider.add(Tarefa(title: title));
     expect(tarefasProvider.tarefas.length, 1);
     expect(tarefasProvider.tarefas[0].title, title);
   });
 
-  test("Deve atualizar o status da tarefa", () {
-    Tarefa tarefa = Tarefa(title: "Olá");
+  test('Deve atualizar o status da tarefa', () {
+    Tarefa tarefa = Tarefa(title: 'Olá');
     tarefasProvider.add(tarefa);
     expect(tarefasProvider.tarefas.length, 1);
     expect(tarefasProvider.tarefas[0].completed, false);
@@ -30,8 +30,8 @@ void main() {
     expect(tarefasProvider.tarefas[0].completed, true);
   });
 
-  test("Deve remover uma tarefa", () {
-    Tarefa tarefa = Tarefa(title: "Olá");
+  test('Deve remover uma tarefa', () {
+    Tarefa tarefa = Tarefa(title: 'Olá');
     tarefasProvider.add(tarefa);
     expect(tarefasProvider.tarefas.length, 1);
     tarefasProvider.remove(tarefa);

@@ -5,12 +5,7 @@ import 'package:tarefas_flutter/models/tarefa.dart';
 import 'package:tarefas_flutter/providers/tarefas_provider.dart';
 
 class HomeScreen extends StatefulWidget {
-  final String title;
-
-  const HomeScreen({
-    super.key,
-    required this.title,
-  });
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -33,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text('Tarefas'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -42,6 +37,15 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               child: Consumer<TarefasProvider>(
                 builder: (context, tarefasProvider, child) {
+                  if (tarefasProvider.tarefas.isEmpty) {
+                    return const Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Nenhuma tarefa encontrada.'),
+                      ],
+                    );
+                  }
+
                   return ListView.builder(
                     shrinkWrap: true,
                     itemCount: tarefasProvider.tarefas.length,
@@ -64,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         controller: _titleController,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
-                          label: Text("Digite algo..."),
+                          label: Text('Digite algo...'),
                           contentPadding: EdgeInsets.all(10),
                         ),
                         onFieldSubmitted: (value) => addTarefa(),

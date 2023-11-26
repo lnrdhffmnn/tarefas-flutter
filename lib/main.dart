@@ -5,17 +5,12 @@ import 'package:tarefas_flutter/screens/home_screen.dart';
 
 void main() {
   runApp(
-    const App(title: 'Tarefas'),
+    const App(),
   );
 }
 
 class App extends StatelessWidget {
-  final String title;
-
-  const App({
-    super.key,
-    required this.title,
-  });
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +21,10 @@ class App extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: title,
         theme: ThemeData.dark(
           useMaterial3: true,
         ),
-        home: HomeScreen(title: title),
+        home: const HomeScreen(),
       ),
     );
   }
